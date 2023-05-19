@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.PersonaDao;
 import entidad.Persona;
 
-public class PersonaDaoImpl {
+public class PersonaDaoImpl implements PersonaDao{
 	
 	private static final String insert = "INSERT INTO personas(DNI, Apellido, Nombre) VALUES(?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE DNI = ";

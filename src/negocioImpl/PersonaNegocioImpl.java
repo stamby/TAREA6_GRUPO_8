@@ -5,10 +5,11 @@ import java.util.List;
 import dao.PersonaDao;
 import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
+import negocio.PersonaNegocio;
 
 
-public class PersonaNegocioImpl {
-	PersonaDao pdao = (PersonaDao) new PersonaDaoImpl();
+public class PersonaNegocioImpl implements PersonaNegocio {
+	PersonaDao pdao = new PersonaDaoImpl();
 	
 	public boolean insert(Persona persona) {
 		
