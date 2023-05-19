@@ -26,6 +26,35 @@ public class Controlador implements ActionListener {
 		//Eventos del FRAME principla => ventanaPrincipal
 		this.ventanaPrincipal.getMenuAgregar().addActionListener(a -> EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		
+		
+		//Eventos del PANEL AgregarPersonas 
+		this.pnlAgregar.getBtnAceptar().addActionListener(a -> EventoClickBoton_AgregarPersona_PanelAgregar(a));
+		
+		
+		
+	}
+
+	private void EventoClickBoton_AgregarPersona_PanelAgregar(ActionEvent a) {
+		// TODO Auto-generated method stub
+		String msj;
+		String Dni = this.pnlAgregar.getTxtDni().getText();
+		String nombre = this.pnlAgregar.getTxtNombre().getText();
+		String apellido = this.pnlAgregar.getTxtApellido().getText();
+		Persona nuevaPersona = new Persona(Dni, nombre, apellido);
+		
+		boolean estado = pNeg.insert(nuevaPersona);
+		
+		if (estado) { 
+			msj = "Persona agregada correctamente.";
+			this.pnlAgregar.getTxtNombre().setText("");
+			this.pnlAgregar.getTxtApellido().setText("");
+			this.pnlAgregar.getTxtDni().setText("");
+		}
+		else { 
+			msj = "Persona no agregada, revise los campos.";
+		}
+		this.pnlAgregar.mostrarMensaje(msj);
+		
 	}
 
 	private void EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a) {

@@ -11,12 +11,26 @@ import negocio.PersonaNegocio;
 public class PersonaNegocioImpl implements PersonaNegocio {
 	PersonaDao pdao = new PersonaDaoImpl();
 	
+	private boolean validoDNI (String DNI) { 
+		try {
+			boolean estado=true;
+			int dniIngresado = Integer.parseInt(DNI); 
+			return true;
+		}
+		catch (Exception Ex) { 
+			return false;
+		}
+	}
+	
 	public boolean insert(Persona persona) {
 		
 		boolean estado=false;
 		if(persona.getNombre().trim().length()>0 && persona.getDni().trim().length()>0 && persona.getApellido().trim().length()>0)
 		{
-			estado=pdao.insert(persona);
+			boolean esValorNumerico = validoDNI(persona.getDni());
+			if (esValorNumerico) { 
+				estado = pdao.insert(persona);
+			}
 		}
 		return estado;
 	}

@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -33,7 +34,16 @@ public class panelAgregar extends JPanel {
 	private JTextField txtDni;
 	private JTextField txtApellido;
 	private JTextField txtNombre;
+	private JButton btnAceptar;
+	
 
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+
+	public void setBtnAceptar(JButton btnAceptar) {
+		this.btnAceptar = btnAceptar;
+	}
 
 	public panelAgregar() {
 		super(); 
@@ -75,12 +85,15 @@ public class panelAgregar extends JPanel {
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+	 btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(24, 165, 152, 25);
 		panel.add(btnAceptar);
 	}
 	
 	public void show () {
 		this.setVisible(true);
+	}
+	public void mostrarMensaje (String msj) { 
+		JOptionPane.showMessageDialog(null, msj);
 	}
 }
