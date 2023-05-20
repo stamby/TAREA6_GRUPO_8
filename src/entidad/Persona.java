@@ -30,5 +30,11 @@ public class Persona {
 		this.Nombre = Nombre;
 	}
 	
+	@Override
+	public String toString() {
+		return Apellido+ ", "+Nombre+ " - "+ Dni+"";
+		//return "Persona [Dni=" + Dni + ", Apellido=" + Apellido + ", Nombre=" + Nombre + "]";
+	}
+	
 
 }
