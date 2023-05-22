@@ -14,6 +14,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 public class panelEliminar extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	
 	//Atributos
 	private JList<Persona> list;
 	private JLabel lblEliminarUsuarios; 
@@ -22,7 +25,7 @@ public class panelEliminar extends JPanel {
 	
 	
 	//Getters y setters
-	public JList getList() {
+	public JList<Persona> getList() {
 		return list;
 	}
 
@@ -59,7 +62,7 @@ public class panelEliminar extends JPanel {
 		lblEliminarUsuarios.setBounds(157, 13, 114, 16);
 		panel.add(lblEliminarUsuarios);
 		
-		 list = new JList();
+		list = new JList<Persona>();
 		list.setBounds(72, 42, 337, 175);
 		panel.add(list);
 		
