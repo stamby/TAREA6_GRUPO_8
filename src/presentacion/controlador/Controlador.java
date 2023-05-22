@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import presentacion.vista.*;
 import negocio.PersonaNegocio;
@@ -45,8 +47,22 @@ public class Controlador implements ActionListener {
 		
 		//Eventos del PANEL EliminarPersona 
 		this.pnlModificar.getBtnModificar().addActionListener(a -> EventoClickBoton_ModificarPersona_PanelModificar(a));
-		
-		this.pnlModificar.getList().addListSelectionListener(a -> EventoValueChanged_ModificarPersona_PanelModificar(a));
+
+		panelModificar pnlModificar = this.pnlModificar;
+		this.pnlModificar.getList().addListSelectionListener(
+				new ListSelectionListener() {
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+					      if (pnlModificar.getList().getSelectedValue() != null) {
+					    	  int index = e.getFirstIndex();
+					    	  
+					    	  Persona seleccion = (Persona) pnlModificar.getList().getModel().getElementAt(index);
+					    	  pnlModificar.setTxtNombre(seleccion.getNombre());
+					    	  pnlModificar.setTxtApellido(seleccion.getApellido());
+					    	  pnlModificar.setTxtDni(seleccion.getDni());
+					      }
+				}});
+				//a -> EventoValueChanged_ModificarPersona_PanelModificar(a));
 	}
 	
 

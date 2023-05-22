@@ -10,10 +10,13 @@ import javax.swing.JPanel;
 
 import entidad.Persona;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 public class panelModificar extends JPanel {
 
-	//Atributos
+		private static final long serialVersionUID = 1L;
+
+		//Atributos
 		private JList<Persona> list;
 		private JLabel lblModificarUsuarios; 
 		private JButton btnModificar;
@@ -23,7 +26,7 @@ public class panelModificar extends JPanel {
 		
 		
 		//Getters y setters
-		public JList getList() {
+		public JList<Persona> getList() {
 			return list;
 		}
 
@@ -51,24 +54,24 @@ public class panelModificar extends JPanel {
 			return txtApellido;
 		}
 
-		public void setTxtApellido(JTextField txtApellido) {
-			this.txtApellido = txtApellido;
+		public void setTxtApellido(String string) {
+			this.txtApellido.setText(string);
 		}
 
 		public JTextField getTxtNombre() {
 			return txtNombre;
 		}
 
-		public void setTxtNombre(JTextField txtNombre) {
-			this.txtNombre = txtNombre;
+		public void setTxtNombre(String string) {
+			this.txtNombre.setText(string);
 		}
 
 		public JTextField getTxtDni() {
 			return txtDni;
 		}
 
-		public void setTxtDni(JTextField txtDni) {
-			this.txtDni = txtDni;
+		public void setTxtDni(String string) {
+			this.txtDni.setText(string);
 		}
 		
 		public panelModificar() {
@@ -79,12 +82,13 @@ public class panelModificar extends JPanel {
 			this.add(panel);
 			panel.setLayout(null);
 			
-				lblModificarUsuarios = new JLabel("Seleccione la persona que desea modificar");
+			lblModificarUsuarios = new JLabel("Seleccione la persona que desea modificar");
 			lblModificarUsuarios.setBounds(29, 13, 274, 16);
 			panel.add(lblModificarUsuarios);
 			
-			 list = new JList();
+			list = new JList<Persona>();
 			list.setBounds(29, 42, 403, 175);
+			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			panel.add(list);
 			
 			 btnModificar = new JButton("Modificar");
