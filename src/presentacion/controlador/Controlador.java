@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionEvent;
 
 import presentacion.vista.*;
 import negocio.PersonaNegocio;
@@ -17,6 +18,8 @@ public class Controlador implements ActionListener {
 	private PersonaNegocio pNeg;
 	private panelAgregar pnlAgregar;
 	private panelEliminar pnlEliminar;
+	private panelListar pnlListar;
+	private panelModificar pnlModificar;
 	
 	public Controlador (ventanaPrincipal vista, PersonaNegocio pNeg) {
 		this.ventanaPrincipal = vista; 
@@ -25,10 +28,14 @@ public class Controlador implements ActionListener {
 		//Instancio Los paneles
 		this.pnlAgregar = new panelAgregar();
 		this.pnlEliminar = new panelEliminar();
+		this.pnlListar = new panelListar();
+		this.pnlModificar = new panelModificar();
 		
 		//Eventos del FRAME principla => ventanaPrincipal
 		this.ventanaPrincipal.getMenuAgregar().addActionListener(a -> EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventanaPrincipal.getMenuEliminar().addActionListener(a -> EventoClickMenu_AbrirPanel_EliminarPersona(a));
+		this.ventanaPrincipal.getMenuListar().addActionListener(a -> EventoClickMenu_AbrirPanel_ListarPersona(a));
+		this.ventanaPrincipal.getMenuModificar().addActionListener(a -> EventoClickMenu_AbrirPanel_ModificarPersona(a));
 		
 		//Eventos del PANEL AgregarPersonas 
 		this.pnlAgregar.getBtnAceptar().addActionListener(a -> EventoClickBoton_AgregarPersona_PanelAgregar(a));
@@ -36,6 +43,10 @@ public class Controlador implements ActionListener {
 		//Eventos del PANEL EliminarPersona 
 		this.pnlEliminar.getBtnEliminar().addActionListener(a -> EventoClickBoton_EliminarPersona_PanelEliminar(a));
 		
+		//Eventos del PANEL EliminarPersona 
+		this.pnlModificar.getBtnModificar().addActionListener(a -> EventoClickBoton_ModificarPersona_PanelModificar(a));
+		
+		this.pnlModificar.getList().addListSelectionListener(a -> EventoValueChanged_ModificarPersona_PanelModificar(a));
 	}
 	
 
@@ -73,9 +84,23 @@ public class Controlador implements ActionListener {
 		
 		
 	}
+	
+	private void EventoClickMenu_AbrirPanel_ListarPersona(ActionEvent a) {
+		List<Persona> lstPersona = pNeg.readAll();
+		cargaList(lstPersona);
+		pnlListar.show();
+		ventanaPrincipal.getContentPane().removeAll();
+		ventanaPrincipal.getContentPane().add(pnlListar);
+		ventanaPrincipal.getContentPane().repaint();
+		ventanaPrincipal.getContentPane().revalidate();
+		
+		
+	}
 	public void cargaList(List<Persona> dataList) {
         //this.dataList = dataList;
 		pnlEliminar.setListData(dataList);
+		pnlListar.setListData(dataList);
+		pnlModificar.setListData(dataList);
     }
 
 	private void EventoClickBoton_AgregarPersona_PanelAgregar(ActionEvent a) {
@@ -107,6 +132,50 @@ public class Controlador implements ActionListener {
 		ventanaPrincipal.getContentPane().add(pnlAgregar);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
+	}
+	
+	private void EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent a) {
+		List<Persona> lstPersona = pNeg.readAll();
+		cargaList(lstPersona);
+		pnlModificar.show();
+		ventanaPrincipal.getContentPane().removeAll();
+		ventanaPrincipal.getContentPane().add(pnlModificar);
+		ventanaPrincipal.getContentPane().repaint();
+		ventanaPrincipal.getContentPane().revalidate();
+		
+	}
+	
+	
+	
+	private void EventoClickBoton_ModificarPersona_PanelModificar(ActionEvent a) {
+		// TODO Auto-generated method stub
+		String msjAlerta="";
+		Persona personaSelec = (Persona) pnlModificar.getList().getSelectedValue(); 
+		 
+		if (personaSelec != null) { 
+			
+			Boolean estado = pNeg.update(personaSelec);
+			if (estado) { 
+				this.pnlModificar.setTxtNombre(personaSelec.getNombre());
+				this.pnlModificar.setTxtApellido(personaSelec.getApellido());
+				this.pnlModificar.setTxtDni(personaSelec.getDni());
+				List<Persona> lstPersona = pNeg.readAll();
+				cargaList(lstPersona);
+			}
+		} 
+		else {
+			msjAlerta = "La persona seleccionada no se pudo eliminar.";
+		}
+		
+		this.pnlModificar.mostrarMensaje(msjAlerta);
+		
+	}
+	
+	private void EventoValueChanged_ModificarPersona_PanelModificar(ListSelectionEvent a) {
+		// Persona personaSelec = (Persona)
+		
+		
+		
 	}
 
 	

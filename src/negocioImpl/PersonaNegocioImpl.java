@@ -43,6 +43,15 @@ public class PersonaNegocioImpl implements PersonaNegocio {
 		}
 		return estado;
 	}
+	
+	public boolean update(Persona persona) {
+		boolean estado=false;
+		boolean esValorNumerico = validoDNI(persona.getDni());
+		if (esValorNumerico) { 
+			estado = pdao.update(persona);
+		}
+		return estado;
+	}
 
 	public List<Persona> readAll() {
 		return pdao.readAll();
